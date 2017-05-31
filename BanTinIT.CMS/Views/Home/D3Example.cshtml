@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "D3Example";
+    Layout = null;// "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Story of the Season</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF8">
+    <meta name="description" content="English Premier League matches since 1993, visualised by league position or by points scored">
+    <meta name="keywords" content="football,soccer,premier league,manchester united,arsenal,liverpool,chelsea,manchester city,football league,league tables,sport">
+    <link rel="stylesheet" href="http://www.thestoryoftheseason.com/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="http://www.thestoryoftheseason.com/css/plugins/flat-ui.css">
+    <link rel="stylesheet" href="http://www.thestoryoftheseason.com/css/premier.css">
+    <link rel="stylesheet" href="http://www.thestoryoftheseason.com/css/colours.css">
+    <link rel="shortcut icon" href="http://www.thestoryoftheseason.com/img/favicon.ico">
+    <meta property="og:title" content="The Premier League story since 1993" />
+    <meta property="og:image" content="http://www.thestoryoftheseason.com/img/screenshot.png" />
+    <meta property="og:site_name" content="The Story of the Season" />
+    <meta property="og:url" content="http://www.thestoryoftheseason.com" />
+    <meta property="og:description" content="Twenty-three years of Premier League matches - track your team's results over the years, see performance by points or position" />
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: { families: [ 'Lato' ] }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })();
+    </script>
+</head>
+<body>
+    <div class="container">
+
+        <!-- header -->
+        <div id="header">
+
+            <div id="head">
+                <h1><a href="/">The Story of the Season</a></h1>
+                <h5>The English Premier League since 1993</h5>
+            </div>
+
+            <div id="social">
+                <!-- AddThis Button BEGIN -->
+                <div class="addthis_toolbox addthis_default_style">
+                    <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+                    <a class="addthis_button_tweet" tw:via="darkgreener" tw:text="20 years of the Premiership, visualised: http://someurl.com"></a>
+                </div>
+                <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=annaps&async=1"></script>
+                <!-- AddThis Button END -->
+            </div>
+
+        </div> <!-- /header -->
+
+        <hr class="crack" />
+
+        <noscript>Sorry, this application needs JavaScript to be enabled.</noscript>
+
+        <!-- controls -->
+        <div class="control">
+            <span class="control_text_left">Show me the season of</span>
+            <ul class="pager" id="year">
+                <li class="previous">
+                    <a href="#">
+                        <img id="prev" src="/Content/images/pager/previous.png" />
+                        <span id="yeartext">2015-16</span>
+                    </a>
+                </li>
+                <li class="next">
+                    <a href="#">
+                        <img id="next" src="/Content/images/pager/next.png" />
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="control">
+            <span class="control_text_left">ranked by</span>
+            <div class="btn-toolbar" id="points_or_position">
+                <div class="btn-group" id="ranking-type">
+                    <a data-ranking="position" class="btn btn-primary active ranking" href="#">Position</a>
+                    <a data-ranking="points" class="btn btn-primary ranking" href="#">Points</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- /controls -->
+
+        <div id="vis"></div>
+
+        <hr class="crack about" />
+
+        <div class="about">Built by <a href="http://anna.ps">Anna Powell-Smith</a> - find me <a href="http://twitter.com/darkgreener">via Twitter</a>. Match data from <a href="http://football-data.co.uk/data.php">football-data.co.uk</a>, used by permission of Joseph Buchdahl. Any errors are mine not his, please get in touch <a href="http://twitter.com/darkgreener">on Twitter</a> or <a href="mailto:football@anna.ps">by email</a> if you spot any problems. Created with <a href="http://d3js.org">D3.js</a>. </div>
+
+        <hr class="crack advert" />
+
+
+    </div>
+
+
+    <script src="/Scripts/D3.leaguage.min.js"></script>
+</body>
+</html>

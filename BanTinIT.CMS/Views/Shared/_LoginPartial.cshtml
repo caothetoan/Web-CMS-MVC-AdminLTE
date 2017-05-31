@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+        
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="~/Themes/AdminLTE/Content/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+            <span class="hidden-xs">
+                @User.Identity.GetUserName()
+            </span>
+        </a>
+        <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+                <img src="~/Themes/AdminLTE/Content/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <p>
+                    @Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" }) - Web Developer
+                    <small>Member since Nov. 2005</small>
+                </p>
+            </li>
+            <!-- Menu Body -->
+            <li class="user-body">
+                <div class="col-xs-4 text-center">
+                    <a href="#">Followers</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Sales</a>
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a href="#">Friends</a>
+                </div>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+                <div class="pull-left">
+                    @Html.ActionLink("Profile", "Index", "Manage", routeValues: null,
+                               htmlAttributes: new { title = "Manage", CssClassPropertyAttribute = "btn btn-default btn-flat" })
+                </div>
+                <div class="pull-right">
+                    <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    
+        @Html.ActionLink("Register | ", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) 
+    
+       @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    
+}

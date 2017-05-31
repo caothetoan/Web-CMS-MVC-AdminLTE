@@ -1,0 +1,147 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Websocket</title>
+</head>
+<body>
+    <div id="echo">
+        <div id="echo-config" style="float: left;">
+            <strong>Location:</strong><br>
+            <input class="draw-border" id="wsUri" size="35" placeholder="wss://echo.websocket.org/">
+            <br>
+            <input class="draw-border echo-checkbox" type="checkbox" id="secureCb" onclick="toggleTls();">
+            <span id="secureCbLabel" style="font-size: smaller; color: rgb(153, 153, 153);">Use secure WebSocket (TLS)</span><br>
+            <button class="echo-button" id="connect">Connect</button>
+            <button class="echo-button" id="disconnect">Disconnect</button>
+            <br>
+            <br>
+            <strong>Message:</strong><br>
+            <input class="draw-border" id="sendMessage" size="35" value="Rock it with HTML5 WebSocket">
+            <br>
+            <button class="echo-button" id="send" onclick="sendMessage();">Send</button>
+        </div>
+        <div id="echo-log" style="float: left; margin-left: 20px; padding-left: 20px; width: 350px; border-left: solid 1px #cccccc;">
+            <strong>Log:</strong>
+            <div id="consoleLog">
+
+            </div>
+            <button class="echo-button" id="clearLogBut" style="position: relative; top: 3px;">Clear log</button>
+        </div>
+    </div>
+<script language="javascript" type="text/javascript">
+
+        var wsUri = "wss://echo.websocket.org/";
+        var output;
+
+        function init() {
+            output = document.getElementById("output");
+            testWebSocket();
+        }
+
+        function testWebSocket() {
+            websocket = new WebSocket(wsUri);
+            websocket.onopen = function (evt) { onOpen(evt) };
+            websocket.onclose = function (evt) { onClose(evt) };
+            websocket.onmessage = function (evt) { onMessage(evt) };
+            websocket.onerror = function (evt) { onError(evt) };
+        }
+
+        function onOpen(evt) {
+            writeToScreen("CONNECTED");
+            doSend("WebSocket rocks");
+        }
+
+        function onClose(evt) {
+            writeToScreen("DISCONNECTED");
+        }
+
+        function onMessage(evt) {
+            writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
+            websocket.close();
+        }
+
+        function onError(evt) {
+            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+        }
+
+        function doSend(message) {
+            writeToScreen("SENT: " + message);
+            websocket.send(message);
+        }
+        function sendMessage() {
+            obj = document.getElementById("sendMessage");
+            if (obj)
+            {
+                message = output.value;
+                if (message)
+                {
+                    websocket = new WebSocket(wsUri);
+                    doSend(message);
+
+                }
+            }
+        }
+
+        function writeToScreen(message) {
+            var pre = document.createElement("p");
+            pre.style.wordWrap = "break-word";
+            pre.innerHTML = message;
+            output.appendChild(pre);
+        }
+
+        window.addEventListener("load", init, false);
+
+    </script>
+
+    <h2>WebSocket Test</h2>
+
+    <div id="output"></div>
+    <script>
+            var connection = new WebSocket('wss://echo.websocket.org', ['soap', 'xmpp']);
+            // When the connection is open, send some data to the server
+            connection.onopen = function () {
+                connection.send('Ping'); // Send the message 'Ping' to the server
+            };
+            // Log errors
+            connection.onerror = function (error) {
+                console.log('WebSocket Error ' + error);
+            };
+
+            // Log messages from the server
+            connection.onmessage = function (e) {
+                console.log('Server: ' + e.data);
+            };
+
+            // Sending String
+            connection.send('your message');
+
+            // Sending canvas ImageData as ArrayBuffer
+            var img = canvas_context.getImageData(0, 0, 400, 320);
+            var binary = new Uint8Array(img.data.length);
+            for (var i = 0; i < img.data.length; i++) {
+                binary[i] = img.data[i];
+            }
+            connection.send(binary.buffer);
+
+            // Sending file as Blob
+            var file = document.querySelector('input[type="file"]').files[0];
+            connection.send(file);
+
+            // Setting binaryType to accept received binary as either 'blob' or 'arraybuffer'
+            connection.binaryType = 'arraybuffer';
+            connection.onmessage = function (e) {
+                console.log(e.data.byteLength); // ArrayBuffer object if binary
+            };
+
+            // Determining accepted extensions
+            console.log(connection.extensions);
+        </script>
+</body>
+</html>
